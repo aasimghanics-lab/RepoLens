@@ -1,0 +1,1 @@
+{"scripts":{"dev":"vite --host 0.0.0.0","build":"tsc && vite build"},"dependencies":{"@vitejs/plugin-react":"4.3.1","vite":"5.4.8","typescript":"5.6.2","react":"18.3.1","react-dom":"18.3.1","cytoscape":"3.30.2"},"devDependencies":{"@types/react":"18.3.5","@types/react-dom":"18.3.0","@types/cytoscape":"3.21.9"}}
