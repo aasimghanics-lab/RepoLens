@@ -1,64 +1,158 @@
 # RepoLens
 
-RepoLens is a graph-first repository intelligence platform that helps engineers understand a codebase before changing it.
+> Graph-first repository intelligence for understanding unfamiliar codebases before making changes.
 
-## Implemented capabilities
+RepoLens is a developer tool that indexes a local repository, extracts symbols and relationships, builds a dependency graph, and estimates the downstream impact of code changes. It is designed to reduce the time engineers spend manually navigating large codebases.
+
+---
+
+# 🎥 Live Demo
+
+**4-minute walkthrough**
+
+https://loom.com/share/ca5f6f98c82d4089b59aebbce95cc3fb
+
+The demo shows:
+
+- Repository indexing
+- Interactive dependency graph
+- Impact analysis
+- Architecture health
+- Repository summary
+- Incremental re-indexing
+
+---
+
+# Why RepoLens?
+
+When joining a new project, engineers often spend hours tracing imports, dependencies, and architecture before safely making a change.
+
+RepoLens automates much of that discovery by generating a graph-based representation of the repository and exposing structural insights through an interactive dashboard.
+
+---
+
+# Features
+
+### Repository Analysis
 
 - Recursive Python, JavaScript, JSX, TypeScript, and TSX indexing
-- Python AST extraction for classes, functions, methods, imports, calls, and inheritance
-- Static JavaScript/TypeScript extraction for imports, functions, classes, calls, and inheritance
-- Cross-file import and unambiguous symbol-call resolution
+- Cross-file symbol extraction
+- Import and dependency analysis
+- Interactive dependency graph
 - Symbol search with source navigation
-- Interactive dependency and symbol graph
-- Reverse-dependency impact analysis, risk scoring, and connected-test recommendations
-- Circular import detection and architecture coupling analysis
-- True hash-based incremental re-indexing for added, modified, removed, and unchanged files
-- Git hotspot and contributor analysis
-- Background indexing jobs and WebSocket progress events
-- JSON index snapshots for local durability
-- PostgreSQL repository metadata persistence
+
+### Impact Analysis
+
+- Reverse dependency traversal
+- Change impact estimation
+- Risk scoring
+- Recommended test targets
+
+### Architecture Intelligence
+
+- Circular dependency detection
+- Architecture coupling analysis
+- Repository summary
+- Git hotspots
+- Contributor analysis
+
+### Incremental Indexing
+
+- Hash-based incremental re-indexing
+- Added / modified / removed file detection
+- Background indexing jobs
+- WebSocket progress updates
+
+### Persistence
+
+- PostgreSQL repository metadata
 - Neo4j graph persistence
-- FastAPI REST API
-- React/TypeScript/Cytoscape dashboard
-- Docker Compose, automated tests, and GitHub Actions CI
+- JSON snapshot storage
 
-## Run
+---
 
-PowerShell:
+# Tech Stack
+
+### Backend
+
+- FastAPI
+- Python
+- PostgreSQL
+- Neo4j
+
+### Frontend
+
+- React
+- TypeScript
+- Cytoscape.js
+
+### Infrastructure
+
+- Docker Compose
+- GitHub Actions
+- WebSockets
+
+---
+
+# Running RepoLens
+
+### Windows
 
 ```powershell
 $env:REPOLENS_SCAN_ROOT="C:\absolute\path\to\your\repository"
 docker compose up --build
 ```
 
-Linux/macOS:
+### Linux / macOS
 
 ```bash
 REPOLENS_SCAN_ROOT=/absolute/path/to/your/repository docker compose up --build
 ```
 
-Open `http://localhost:3000` and index `/repo`.
+Open
 
-Services:
+```
+http://localhost:3000
+```
 
-- UI: `http://localhost:3000`
-- API docs: `http://localhost:8000/docs`
-- Neo4j Browser: `http://localhost:7474`
-- PostgreSQL: internal Docker service on port 5432
+Index
 
-## Tests
+```
+/repo
+```
+
+---
+
+# Services
+
+| Service | URL |
+|---------|-----|
+| UI | http://localhost:3000 |
+| API Docs | http://localhost:8000/docs |
+| Neo4j Browser | http://localhost:7474 |
+
+---
+
+# Testing
 
 ```bash
 PYTHONPATH=backend pytest backend/tests -q
 ```
 
-## Resume-safe description
+---
+
+# Resume Description
 
 **RepoLens — Repository Intelligence Platform**
 
-Built a graph-first code intelligence platform using FastAPI, React, TypeScript, PostgreSQL, and Neo4j that indexes Python and JavaScript/TypeScript repositories, extracts symbols/imports/calls/inheritance, visualizes dependency graphs, performs incremental re-indexing, and computes change-impact radius, architecture risks, cycles, Git hotspots, and recommended tests.
+Built a graph-first repository intelligence platform using FastAPI, React, TypeScript, PostgreSQL, and Neo4j that indexes Python and JavaScript/TypeScript repositories, extracts symbols and relationships, visualizes dependency graphs, performs incremental re-indexing, and estimates downstream change impact.
 
-## Honest limitations
+---
 
-RepoLens uses Python's built-in AST for Python and a static parser for JavaScript/TypeScript. The JS/TS parser is intentionally lightweight and is not a complete compiler frontend. Call resolution is confidence-scored and only promoted when unambiguous. Large enterprise monorepositories may require parser workers and batched Neo4j writes for maximum throughput.
+# Current Limitations
 
+RepoLens currently uses Python's built-in AST for Python and a lightweight static parser for JavaScript/TypeScript.
+
+Call resolution is confidence scored and promoted only when unambiguous.
+
+Very large monorepositories would benefit from parser worker pools, batched graph persistence, and additional language frontends.
